@@ -3,6 +3,8 @@ import ContactList from './Contact/ContactList.jsx';
 import Filter from './Filter/Filter.jsx';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
+import Store from '../Redux/Store.js';
+import { Provider } from 'react-redux';
 
 const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -46,14 +48,16 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <Form addingContact={addContact}></Form>
-      <h2>Contacts</h2>
-      <Filter addingFilterList={setFilter}></Filter>
-      <ContactList
-        contacts={contactList()}
-        removeFnc={removeContact}
-      ></ContactList>
+      <Provider store={Store}>
+        <h2>Phonebook</h2>
+        <Form addingContact={addContact}></Form>
+        <h2>Contacts</h2>
+        <Filter addingFilterList={setFilter}></Filter>
+        <ContactList
+          contacts={contactList()}
+          removeFnc={removeContact}
+        ></ContactList>
+      </Provider>
     </div>
   );
 };
